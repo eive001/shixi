@@ -27,7 +27,7 @@ void  ReadAssemble() //用于读入汇编指令
 	{
 		readFile.push_back(line);
 	}
-	cout << "共有单词数目:" << readFile.size() << endl;
+	//cout << "共有单词数目:" << readFile.size() << endl;
 }
 void  Display()
 {
@@ -263,22 +263,26 @@ void Output(vector<string> &binString)
 		
 		str = "0x";
 		intTemp = assBinResult.at(i);
-		for (int j = 0; j < 32; j++)
+		for (int j = 0; j < 8; j++)
 		{
 			
 			int a = 0;
-			a = intTemp / ((int)pow(2,31-j));
-			intTemp = intTemp % ((int)pow(2, 31 - j));
+			a = intTemp / ((int)pow(16,7-j));
+			intTemp = intTemp % ((int)pow(16, 7 - j));
 			
+			if (a<10)
+			{
+                char t = '0';
+			    str += ((char)a + t );
+			}
+			else if (10<=a&&a<=15) 
+			{
+				a -= 10;
+				char t = 'a';
+				str += ((char)a + t);
+			}
 
-			if ( 0 == a)
-			{
-				str += "0";
-			}
-			else if (1 == a)
-			{
-				str += "1";
-			}
+			
 		}
 		binString.push_back(str);
 
